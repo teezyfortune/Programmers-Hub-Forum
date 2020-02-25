@@ -1,16 +1,16 @@
 import models from '../../database/models';
 
-const { Questions } = models;
+const { comments } = models;
 
-export const createQuestion = async (items) => {
+export const createComment = async (userId, comment, questionId) => {
   try {
-    return await Questions.create(items);
+    return await comments.create({ userId, comment, questionId });
   } catch (error) {
     return error;
   }
 };
 
-export const upadateQuestion = async (items, id) => {
+export const upadateComment = async (items, id) => {
   try {
     const parameter = items;
     const where = {
@@ -19,26 +19,26 @@ export const upadateQuestion = async (items, id) => {
       },
       returning: true,
     };
-    return await Questions.update(parameter, where);
+    return await comments.update(parameter, where);
   } catch (error) {
     return error;
   }
 };
 
-export const deleteQuestion = async (id) => {
+export const deleteComment = async (id) => {
   try {
     const where = {
       where: {
         id,
       },
     };
-    return await Questions.destroy(where);
+    return await comments.destroy(where);
   } catch (error) {
     return error;
   }
 };
 
-export const findOneQuestion = async (id, userId) => {
+export const findOneComment = async (id, userId) => {
   try {
     const where = {
       where: {
@@ -46,7 +46,7 @@ export const findOneQuestion = async (id, userId) => {
         userId,
       },
     };
-    return Questions.findOne(where);
+    return comments.findOne(where);
   } catch (error) {
     return error;
   }
