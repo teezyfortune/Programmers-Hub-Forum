@@ -21,7 +21,7 @@ export const invalidUpdateComment = {
 export const updateComment = {
   userId: 4,
   // commentId: '6036d53c-6079-11ea-bc55-0242ac130003',
-  comment: 'fnffjfjfnjfnffjfnjfjfnf',
+  comment: 'fnfbfufjfjfnjfnffjfnjfjfnf',
 };
 
 export const moderatorUpdateComment = {
