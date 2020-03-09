@@ -1,5 +1,5 @@
 import express from 'express';
-import { saveQuestion, editQuestion, destroytQuestion } from './question.controller';
+import { saveQuestion, editQuestion, destroyQuestion } from './question.controller';
 import { validateInput } from '../middleware/validation';
 import { questionSchema, editQuestionSchema } from '../middleware/schema';
 import imageUpload from '../middleware/image_upload/upload';
@@ -12,7 +12,7 @@ const questionRoutes = express.Router();
  * /createQuestion:
  *  post:
  *    tags:
- *      - question
+ *      - Ask Questions
  *    description: User should be able to ask a question in the forum
  *    produces:
  *      - application/json
@@ -57,8 +57,8 @@ questionRoutes.post('/createQuestion', validateInput(questionSchema), imageUploa
  * /updateQuestion/:id:
  *  patch:
  *    tags:
- *      - question
- *    description: User should be able to ask a question in the forum
+ *      - Update Question
+ *    description: User should be able to update their
  *    produces:
  *      - application/json
  *    parameters:
@@ -107,8 +107,8 @@ questionRoutes.patch(
  * /deleteQuestion/:id:
  *  delete:
  *    tags:
- *      - question
- *    description: User should be able to ask a question in the forum
+ *      - Delete Question
+ *    description: User should be able to delete a question
  *    produces:
  *      - application/json
  *    parameters:
@@ -124,28 +124,6 @@ questionRoutes.patch(
  *      500:
  *        description: Server error message
  */
-questionRoutes.delete('/deleteQuestion/:id', destroytQuestion);
+questionRoutes.delete('/deleteQuestion/:id', destroyQuestion);
 
-/**
- * @swagger
- *
- * /updateQuestion/:id:
- *  get:
- *    tags:
- *      - question
- *    description: User should be able to ask a question in the forum
- *    produces:
- *      - application/json
- *    parameters:
- *      - name: id
- *        description: Questionid
- *        required: false
- *        type: integer
- *    responses:
- *      201:
- *        description: Successfully created a question
- *      500:
- *        description: Server error message
- */
-// questionRoutes.get('/fetcOneQuestion/:id');
 export default questionRoutes;

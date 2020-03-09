@@ -8,9 +8,10 @@ import {
 import {
   QUESTION_SUCCESS,
   SERVER_ERROR,
-  NOT_FOUND,
   UPDATE_QUESTION,
   DELETE_QUESTION,
+  CANNOT_EDIT_QUESTION,
+  CANNOT_DELETE_QUESTION,
 } from '../../utils/constant';
 
 export const saveQuestion = async (req, res) => {
@@ -35,10 +36,12 @@ export const saveQuestion = async (req, res) => {
 
 export const editQuestion = async (req, res) => {
   try {
-    const questionId = req.params.id;
-    const findOne = await findOneQuestion(questionId);
-    if (findOne.length === 0) {
-      return Response(res, { status: 404, message: NOT_FOUND });
+    const { id: questionId, userId } = req.body;
+
+    const findOne = await findOneQuestion(questionId, userId);
+
+    if (!findOne) {
+      return Response(res, { status: 401, message: CANNOT_EDIT_QUESTION });
     }
     const edit = await upadateQuestion(req.body, questionId);
 
@@ -48,13 +51,16 @@ export const editQuestion = async (req, res) => {
   }
 };
 
-export const destroytQuestion = async (req, res) => {
+export const destroyQuestion = async (req, res) => {
   try {
-    const questionId = req.params.id;
-    const findOne = await findOneQuestion(questionId);
-    if (findOne.length === 0) {
-      return Response(res, { status: 404, message: NOT_FOUND });
+    const { id: questionId } = req.params;
+    const { userId } = req.body;
+    const findOne = await findOneQuestion(questionId, userId);
+
+    if (!findOne) {
+      return Response(res, { status: 401, message: CANNOT_DELETE_QUESTION });
     }
+
     await deleteQuestion(questionId);
     return Response(res, { status: 200, message: DELETE_QUESTION });
   } catch (error) {
