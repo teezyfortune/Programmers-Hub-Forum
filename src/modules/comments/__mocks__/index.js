@@ -27,7 +27,7 @@ export const updateComment = {
 export const moderatorUpdateComment = {
   userId: 3,
   type: 'moderator',
-  comment: 'fnffjfjfnjfnffjfnjfjfnf',
+  comment: 'when you are mine',
 };
 
 export const del = {
