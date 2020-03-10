@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
+        unique: true,
       },
       userId: DataTypes.INTEGER,
       questionId: {
@@ -24,5 +25,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     { tableName: 'comments' }
   );
+  comments.associate = (models) => {
+    const { Questions } = models;
+    comments.belongsTo(Questions, { foreignKey: 'questionId' });
+  };
   return comments;
 };

@@ -1,10 +1,14 @@
 import Response from '../../utils/index';
+// eslint-disable-next-line import/no-cycle
 import {
   createQuestion,
   upadateQuestion,
   deleteQuestion,
   findOneQuestion,
+  getSpecificQuestionAndTheirComents,
 } from '../../services/question/question.services';
+
+import { findAllComment } from '../../services/comments/comments.services';
 import {
   QUESTION_SUCCESS,
   SERVER_ERROR,
@@ -12,6 +16,8 @@ import {
   DELETE_QUESTION,
   CANNOT_EDIT_QUESTION,
   CANNOT_DELETE_QUESTION,
+  QUESTION_RETRIEVED,
+  NO_COMMENTS,
 } from '../../utils/constant';
 
 export const saveQuestion = async (req, res) => {
@@ -68,3 +74,32 @@ export const destroyQuestion = async (req, res) => {
   }
 };
 export const fetchOneQuestion = async () => {};
+
+export const fetchOneSpeciicfQuestionWithComment = async (req, res) => {
+  try {
+    const { id: questionId } = req.params;
+
+    const question = await getSpecificQuestionAndTheirComents(questionId);
+    const comments = await findAllComment(questionId);
+
+    if (comments.length === 0) {
+      return res.status(200).json({
+        status: 200,
+        message: QUESTION_RETRIEVED,
+        data: question,
+        comments: {
+          message: NO_COMMENTS,
+        },
+      });
+    }
+
+    return res.status(200).json({
+      status: 200,
+      message: QUESTION_RETRIEVED,
+      data: { question, comments },
+    });
+  } catch (error) {
+    console.log('>>>>>', error);
+    return Response(res, { status: 500, message: SERVER_ERROR });
+  }
+};

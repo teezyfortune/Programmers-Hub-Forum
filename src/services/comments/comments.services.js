@@ -51,3 +51,17 @@ export const findOneComment = async (id, userId) => {
     return error;
   }
 };
+
+export const findAllComment = async (questionId) => {
+  try {
+    const where = {
+      where: {
+        questionId,
+      },
+      order: [['createdAt', 'DESC']],
+    };
+    return comments.findAll(where);
+  } catch (error) {
+    return error;
+  }
+};

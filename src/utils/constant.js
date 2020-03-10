@@ -15,3 +15,5 @@ export const CANNOT_EDIT_QUESTION =
 export const CANNOT_DELETE_QUESTION =
   'You cannot edit this question, Please make sure you are loggedIn';
 export const AUTHORISED = 'moderator';
+export const QUESTION_RETRIEVED = 'Question retrieved successfuly';
+export const NO_COMMENTS = 'No comment found for this question';

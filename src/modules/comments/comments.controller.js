@@ -80,4 +80,4 @@ export const destroyComment = async (req, res) => {
     return Response(res, { status: 500, message: SERVER_ERROR });
   }
 };
-export const fetchOneQuestion = async () => {};
+// export const fetchOneOmment = async () => {};

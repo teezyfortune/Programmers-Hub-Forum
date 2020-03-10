@@ -1,4 +1,5 @@
 import models from '../../database/models';
+import questionRoutes from '../../modules/questions/question.route';
 
 const { Questions } = models;
 
@@ -49,5 +50,19 @@ export const findOneQuestion = async (id, userId) => {
     return Questions.findOne(where);
   } catch (error) {
     return error;
+  }
+};
+
+export const getSpecificQuestionAndTheirComents = async (id) => {
+  try {
+    const where = {
+      where: {
+        id,
+      },
+      order: [['createdAt', 'DESC']],
+    };
+    return await Questions.findOne(where);
+  } catch (err) {
+    return err;
   }
 };
