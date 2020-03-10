@@ -18,18 +18,12 @@ import {
   CANNOT_DELETE_QUESTION,
   QUESTION_RETRIEVED,
   NO_COMMENTS,
+  AUTHORISED,
 } from '../../utils/constant';
 
 export const saveQuestion = async (req, res) => {
   try {
-    const questionDetails = {
-      userId: req.body.id || 1,
-      title: req.body.title,
-      question: req.body.question,
-      image: req.body.image,
-      tags: req.body.tags,
-    };
-    const question = await createQuestion(questionDetails);
+    const question = await createQuestion(req.body);
     return Response(res, {
       status: 201,
       message: QUESTION_SUCCESS,
@@ -42,14 +36,20 @@ export const saveQuestion = async (req, res) => {
 
 export const editQuestion = async (req, res) => {
   try {
-    const { id: questionId, userId } = req.body;
+    const { id: questionId, userId, type, title, question, image, tags } = req.body;
 
     const findOne = await findOneQuestion(questionId, userId);
+
+    if (!findOne && type === AUTHORISED) {
+      const edit = await upadateQuestion({ title, question, image, tags }, questionId);
+      return Response(res, { status: 200, message: UPDATE_QUESTION, data: edit });
+    }
 
     if (!findOne) {
       return Response(res, { status: 401, message: CANNOT_EDIT_QUESTION });
     }
-    const edit = await upadateQuestion(req.body, questionId);
+
+    const edit = await upadateQuestion({ title, question, image, tags }, questionId);
 
     return Response(res, { status: 200, message: UPDATE_QUESTION, data: edit });
   } catch (error) {
@@ -60,8 +60,13 @@ export const editQuestion = async (req, res) => {
 export const destroyQuestion = async (req, res) => {
   try {
     const { id: questionId } = req.params;
-    const { userId } = req.body;
+    const { userId, type } = req.body;
     const findOne = await findOneQuestion(questionId, userId);
+
+    if (!findOne && type === AUTHORISED) {
+      await deleteQuestion(questionId);
+      return Response(res, { status: 200, message: DELETE_QUESTION });
+    }
 
     if (!findOne) {
       return Response(res, { status: 401, message: CANNOT_DELETE_QUESTION });
@@ -99,7 +104,6 @@ export const fetchOneSpeciicfQuestionWithComment = async (req, res) => {
       data: { question, comments },
     });
   } catch (error) {
-    console.log('>>>>>', error);
     return Response(res, { status: 500, message: SERVER_ERROR });
   }
 };
