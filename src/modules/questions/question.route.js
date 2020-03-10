@@ -1,5 +1,11 @@
+/* eslint-disable import/no-cycle */
 import express from 'express';
-import { saveQuestion, editQuestion, destroyQuestion } from './question.controller';
+import {
+  saveQuestion,
+  editQuestion,
+  destroyQuestion,
+  fetchOneSpeciicfQuestionWithComment,
+} from './question.controller';
 import { validateInput } from '../middleware/validation';
 import { questionSchema, editQuestionSchema } from '../middleware/schema';
 import imageUpload from '../middleware/image_upload/upload';
@@ -126,4 +132,26 @@ questionRoutes.patch(
  */
 questionRoutes.delete('/deleteQuestion/:id', destroyQuestion);
 
+/**
+ * @swagger
+ *
+ * /:questionId/get:
+ *  delete:
+ *    tags:
+ *      - Delete Question
+ *    description: User should be able to get a question and all comments attached to it
+ *    produces:
+ *      - application/json
+ *    parameters:
+ *      - name: id
+ *        description: Questionid
+ *        required: true
+ *        type: uuid
+ *    responses:
+ *      200:
+ *        description: Successfully created a question
+ *      500:
+ *        description: Server error message
+ */
+questionRoutes.get('/:id/fetch-question', fetchOneSpeciicfQuestionWithComment);
 export default questionRoutes;
