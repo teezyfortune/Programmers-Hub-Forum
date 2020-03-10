@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
+        unique: true,
       },
       userId: DataTypes.INTEGER,
       title: DataTypes.STRING,
@@ -16,8 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  // Questions.associate = function(models) {
-  //   // associations can be defined here
-  // };
+  Questions.associate = (models) => {
+    const { comments } = models;
+    Questions.hasMany(comments, { foreignKey: 'id' });
+  };
   return Questions;
 };

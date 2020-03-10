@@ -60,6 +60,11 @@ commentRoutes.post('/:questionId/createComment', validateInput(commentSchema), s
  *        in: formData
  *        required: false
  *        type: string
+ *      - name: type
+ *        description: describes the person who wants to edit
+ *        in: formData
+ *        required: false
+ *        type: string
  *    responses:
  *      201:
  *        description: Successfully created a comment
@@ -108,6 +113,11 @@ commentRoutes.delete('/:commentId/deleteComment', destroyComment);
  *        description: Questionid
  *        required: false
  *        type: integer
+ *      - name: type
+ *        description: Describes the person who wants to delete
+ *        in: formData
+ *        required: fasle
+ *        type: string
  *    responses:
  *      201:
  *        description: Successfully created a question

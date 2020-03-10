@@ -51,3 +51,17 @@ export const findOneQuestion = async (id, userId) => {
     return error;
   }
 };
+
+export const getSpecificQuestionAndTheirComents = async (id) => {
+  try {
+    const where = {
+      where: {
+        id,
+      },
+      order: [['createdAt', 'DESC']],
+    };
+    return await Questions.findOne(where);
+  } catch (err) {
+    return err;
+  }
+};

@@ -8,6 +8,8 @@ import {
   CANNOT_EDIT_QUESTION,
   CANNOT_DELETE_QUESTION,
   DELETE_QUESTION,
+  NO_COMMENTS,
+  QUESTION_RETRIEVED,
 } from '../../utils/constant';
 
 import * as mocks from './__mocks__/index';
@@ -82,12 +84,18 @@ describe('CREATE QUESTION API', () => {
         done();
       });
   });
-  // it('should be able create a new question', (done) => {
-  //   request.post(mocks.baseDelete).end((err, response) => {
-  //     if (err) done(err);
-  //     expect(response.statusCode).to.equals(422);
-  //     expect(response.body.err).to.equals('question is not allowed to be empty');
-  //     done();
-  //   });
-  // });
+  it('should be able get a single question and comment associated to it', (done) => {
+    request.get(mocks.baseGetSpecfic).end((err, response) => {
+      if (err) done(err);
+      const { data } = response.body;
+      if (data) {
+        expect(response.statusCode).to.equals(200);
+        expect(response.body.message).to.equals(QUESTION_RETRIEVED);
+      } else {
+        expect(response.statusCode).to.equals(200);
+        expect(response.body.message).to.equals(NO_COMMENTS);
+      }
+      done();
+    });
+  });
 });
