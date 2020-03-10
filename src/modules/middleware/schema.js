@@ -1,7 +1,7 @@
 import Joi from '@hapi/joi';
 
 export const questionSchema = Joi.object({
-  id: Joi.number(),
+  userId: Joi.number(),
   title: Joi.string().required(),
   question: Joi.string().required(),
   image: Joi.string().uri(),
@@ -17,6 +17,7 @@ export const editQuestionSchema = Joi.object({
     .uuid()
     .required(),
   userId: Joi.number().required(),
+  type: Joi.string(),
 });
 
 export const commentSchema = Joi.object({
