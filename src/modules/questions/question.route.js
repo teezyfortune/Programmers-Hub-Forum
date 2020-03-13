@@ -101,7 +101,7 @@ questionRoutes.post('/createQuestion', validateInput(questionSchema), imageUploa
  *        description: Server error message
  */
 questionRoutes.patch(
-  '/updateQuestion/:id',
+  '/:id/updateQuestion',
   validateInput(editQuestionSchema),
   imageUpload,
   editQuestion
