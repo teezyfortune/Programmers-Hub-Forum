@@ -44,7 +44,6 @@ export const baseUpdate = '/api/v1/updateQuestion/4959fa68-5955-11ea-8e2d-0242ac
 
 export const baseInValidDelete = '/api/v1/deleteQuestion/4959fa68-5955-11ea-8e2d-0242ac130003';
 
-
 export const baseValidDelete = '/api/v1/deleteQuestion/4959fa68-5955-11ea-8e2d-0242ac130003';
 
 export const baseGetSpecfic = '/api/v1/4959fa68-5955-11ea-8e2d-0242ac130003/fetch-question';

@@ -1,7 +1,7 @@
 import express from 'express';
 import { saveComment, editComment, destroyComment } from './comments.controller';
 import { validateInput } from '../middleware/validation';
-import { commentSchema, editCommentSchema } from '../middleware/schema';
+import { commentSchema, editCommentSchema } from '../middleware/schema/schema';
 
 const commentRoutes = express.Router();
 

@@ -25,9 +25,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     { tableName: 'comments' }
   );
-  comments.associate = (models) => {
-    const { Questions } = models;
-    comments.belongsTo(Questions, { foreignKey: 'questionId' });
-  };
+  // comments.associate = (models) => {
+  //   const { Questions } = models;
+  //   comments.belongsTo(Questions, { foreignKey: 'questionId' });
+  // };
   return comments;
 };

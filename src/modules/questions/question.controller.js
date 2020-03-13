@@ -99,7 +99,6 @@ export const fetchOneSpeciicfQuestionWithComment = async (req, res) => {
       data: { question, comments },
     });
   } catch (error) {
-    console.log('>>>>>', error);
     return Response(res, { status: 500, message: SERVER_ERROR });
   }
 };

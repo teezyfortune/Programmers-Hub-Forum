@@ -17,3 +17,9 @@ export const CANNOT_DELETE_QUESTION =
 export const AUTHORISED = 'moderator';
 export const QUESTION_RETRIEVED = 'Question retrieved successfuly';
 export const NO_COMMENTS = 'No comment found for this question';
+export const ANSWER_SUCCESS = 'Answer created successfully';
+export const ANSWER_UPDATED = 'Answer updated successfully';
+export const CANNOT_EDIT_ANSWSER = 'You cannot edit this Answer, Please make sure you are loggedIn';
+export const CANNOT_DELETE_ANSWER =
+  'You cannot delete another person answer, Please make sure you are loggedIn';
+export const ANSWER_DELETED = 'You have successfully deleted answer';

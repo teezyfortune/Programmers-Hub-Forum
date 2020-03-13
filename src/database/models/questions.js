@@ -17,9 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  Questions.associate = (models) => {
-    const { comments } = models;
-    Questions.hasMany(comments, { foreignKey: 'id' });
-  };
+  // Questions.associate = (models) => {
+  //   const { comments } = models;
+  //   Questions.hasMany(comments, { foreignKey: 'id' });
+  // };
   return Questions;
 };

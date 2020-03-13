@@ -7,7 +7,7 @@ import {
   fetchOneSpeciicfQuestionWithComment,
 } from './question.controller';
 import { validateInput } from '../middleware/validation';
-import { questionSchema, editQuestionSchema } from '../middleware/schema';
+import { questionSchema, editQuestionSchema } from '../middleware/schema/schema';
 import imageUpload from '../middleware/image_upload/upload';
 
 const questionRoutes = express.Router();
