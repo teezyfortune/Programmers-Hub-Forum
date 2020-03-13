@@ -1,15 +1,18 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('comments', {
+    return queryInterface.createTable('Answers', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        DefaultValue: Sequelize.UUIDV4,
       },
-      userId: {
-        type: Sequelize.INTEGER,
+      image_url: {
+        type: Sequelize.STRING,
         allowNull: false,
+      },
+      answer: {
+        type: Sequelize.TEXT,
       },
       questionId: {
         type: Sequelize.UUID,
@@ -19,8 +22,9 @@ module.exports = {
           key: 'id',
         },
       },
-      comment: {
-        type: Sequelize.STRING,
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +37,6 @@ module.exports = {
     });
   },
   down: (queryInterface) => {
-    return queryInterface.dropTable('comments');
+    return queryInterface.dropTable('Answers');
   },
 };

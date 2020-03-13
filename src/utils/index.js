@@ -5,7 +5,9 @@ const Response = (response, resObj) => {
       return response.status(status).json({ status, err: message });
     }
     return response.status(status).json({ status, message, data });
-  } catch (eror) {}
+  } catch (erorr) {
+    return erorr;
+  }
 };
 
 export default Response;

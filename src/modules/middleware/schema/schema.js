@@ -20,6 +20,7 @@ export const editQuestionSchema = Joi.object({
   type: Joi.string(),
 });
 
+// comment schema start
 export const commentSchema = Joi.object({
   userId: Joi.number().required(),
   comment: Joi.string().required(),
