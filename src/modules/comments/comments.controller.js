@@ -19,9 +19,13 @@ const { comments } = models;
 
 export const saveComment = async (req, res) => {
   try {
-    const { answerId } = req.params;
+    const { questionId } = req.params;
 
-    const question = await comments.create(req.body, answerId);
+    const question = await comments.create({
+      userId: req.body.userId,
+      comment: req.body.comment,
+      questionId,
+    });
     return Response(res, {
       status: 201,
       message: COMMENT_SUCCESS,
