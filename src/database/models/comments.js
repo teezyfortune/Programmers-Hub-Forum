@@ -10,16 +10,16 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       userId: DataTypes.INTEGER,
-      answerId: {
+      questionId: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: 'Answers',
+          model: 'Questions',
           key: 'id',
         },
       },
       comment: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },
