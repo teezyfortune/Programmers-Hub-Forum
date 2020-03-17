@@ -66,3 +66,11 @@ export const getSpecificQuestion = async (id) => {
     return err;
   }
 };
+
+export const getAllQuestion = async () => {
+  try {
+    return await Questions.findAll({ order: [['createdAt', 'DESC']] });
+  } catch (err) {
+    return err;
+  }
+};

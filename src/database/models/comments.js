@@ -10,14 +10,8 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       userId: DataTypes.INTEGER,
-      answerId: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-          model: 'Answers',
-          key: 'id',
-        },
-      },
+      answerId: DataTypes.INTEGER,
+
       comment: {
         type: DataTypes.TEXT,
         allowNull: false,
@@ -25,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     { tableName: 'comments' }
   );
-  // comments.associate = (models) => {
-  //   const { Questions } = models;
-  //   comments.belongsTo(Questions, { foreignKey: 'questionId' });
-  // };
+  comments.associate = (models) => {
+    const { Answers } = models;
+    comments.belongsTo(Answers);
+  };
   return comments;
 };

@@ -23,3 +23,8 @@ export const CANNOT_EDIT_ANSWSER = 'You cannot edit this Answer, Please make sur
 export const CANNOT_DELETE_ANSWER =
   'You cannot delete another person answer, Please make sure you are loggedIn';
 export const ANSWER_DELETED = 'You have successfully deleted answer';
+export const ALL_QUESTION = 'All questions retrieved';
+export const NO_QUESTION = 'No question found';
+export const SPECIFIC_ANSWER = 'Answer retrieved successfully';
+export const ANSWER_COMMENT = 'No comment found';
+export const COMMENT_RETRIEVED = 'Comment retrieved successfully';

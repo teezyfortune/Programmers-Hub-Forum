@@ -24,7 +24,9 @@ export const editQuestionSchema = Joi.object({
 export const commentSchema = Joi.object({
   userId: Joi.number().required(),
   comment: Joi.string().required(),
-  questionId: Joi.string().uuid(),
+  answerId: Joi.string()
+    .uuid()
+    .required(),
 });
 
 export const editCommentSchema = Joi.object({

@@ -8,7 +8,7 @@ const commentRoutes = express.Router();
 /**
  * @swagger
  *
- * /createComment/:questionId:
+ * /createComment/:answerId:
  *  post:
  *    tags:
  *      - Create Comments
@@ -37,12 +37,12 @@ const commentRoutes = express.Router();
  *      500:
  *        description: Server error message
  */
-commentRoutes.post('/:questionId/createComment', validateInput(commentSchema), saveComment);
+commentRoutes.post('/:answerId/createComment', validateInput(commentSchema), saveComment);
 
 /**
  * @swagger
  *
- * /:questionId/updateComment:
+ * /:answerId/updateComment:
  *  patch:
  *    tags:
  *      - Update Comment
@@ -71,7 +71,7 @@ commentRoutes.patch('/:commentId/updateComment', validateInput(editCommentSchema
 /**
  * @swagger
  *
- * /:questionId/deleteComment:
+ * /:answerId/deleteComment:
  *  delete:
  *    tags:
  *      - Delete Comment
@@ -96,7 +96,7 @@ commentRoutes.delete('/:commentId/deleteComment', destroyComment);
 /**
  * @swagger
  *
- * /:questionId/updateQuestion:
+ * /:answerId/updateQuestion:
  *  get:
  *    tags:
  *      - question

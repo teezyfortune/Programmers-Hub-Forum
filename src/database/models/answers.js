@@ -24,10 +24,14 @@ module.exports = (sequelize, DataTypes) => {
       image_url: DataTypes.STRING,
       answer: DataTypes.TEXT,
     },
-    { tableName: 'Answers' }
+    {
+      tableName: 'Answers',
+    }
   );
-  // answers.associate = function(models) {
-  //   // associations can be defined here
-  // };
+  Answers.associate = (models) => {
+    const { comments, Questions } = models;
+    comments.hasMany(comments);
+    comments.belongsTo(Questions);
+  };
   return Answers;
 };

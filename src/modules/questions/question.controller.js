@@ -6,6 +6,7 @@ import {
   deleteQuestion,
   findOneQuestion,
   getSpecificQuestion,
+  getAllQuestion,
 } from '../../services/question/question.services';
 
 import { getAllAnswerToAQuestion } from '../../services/answers/answers.services';
@@ -19,6 +20,8 @@ import {
   QUESTION_RETRIEVED,
   NO_COMMENTS,
   AUTHORISED,
+  ALL_QUESTION,
+  NO_QUESTION,
 } from '../../utils/constant';
 
 export const saveQuestion = async (req, res) => {
@@ -78,7 +81,18 @@ export const destroyQuestion = async (req, res) => {
     return Response(res, { status: 500, message: SERVER_ERROR });
   }
 };
-export const fetchOneQuestion = async () => {};
+
+export const fetchAllQuestion = async (req, res) => {
+  try {
+    const questions = await getAllQuestion();
+    if (questions.length === 0) {
+      return res.status(200).jso({ status: 200, message: NO_QUESTION });
+    }
+    return res.status(200).json({ status: 200, message: ALL_QUESTION, data: questions });
+  } catch (err) {
+    return Response(res, { status: 500, message: SERVER_ERROR });
+  }
+};
 
 export const fetchOneSpeciicfQuestionWithComment = async (req, res) => {
   try {

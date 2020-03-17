@@ -5,6 +5,7 @@ import {
   editQuestion,
   destroyQuestion,
   fetchOneSpeciicfQuestionWithComment,
+  fetchAllQuestion,
 } from './question.controller';
 import { validateInput } from '../middleware/validation';
 import { questionSchema, editQuestionSchema } from '../middleware/schema/schema';
@@ -153,4 +154,24 @@ questionRoutes.delete('/:id/deleteQuestion/', destroyQuestion);
  *        description: Server error message
  */
 questionRoutes.get('/:id/fetch-question/', fetchOneSpeciicfQuestionWithComment);
+
+
+/**
+ * @swagger
+ *
+ * /allQuestions:
+ *  get:
+ *    tags:
+ *      - All questions
+ *    description: User should be all be to see all question
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: Ok
+ *      500:
+ *        description: Server error message
+ */
+questionRoutes.get('/allQuestions/', fetchAllQuestion);
+
 export default questionRoutes;

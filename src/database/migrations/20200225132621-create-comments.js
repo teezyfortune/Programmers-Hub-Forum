@@ -11,14 +11,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      answerId: {
-        type: Sequelize.UUID,
-        allowNull: false,
-        references: {
-          model: 'Answers',
-          key: 'id',
-        },
-      },
       comment: {
         type: Sequelize.TEXT,
       },
