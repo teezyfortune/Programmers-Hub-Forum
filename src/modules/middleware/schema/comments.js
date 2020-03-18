@@ -1,6 +1,5 @@
 import Joi from '@hapi/joi';
 
-
 // comment schema start
 export const commentSchema = Joi.object({
   userId: Joi.number().required(),

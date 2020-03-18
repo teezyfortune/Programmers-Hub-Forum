@@ -3,7 +3,8 @@ import {
   saveAnswer,
   editAnswer,
   destroyAnswer,
-fetASpecifAnswerAndComments} from './answer.controller';
+  fetASpecifAnswerAndComments,
+} from './answer.controller';
 import { answerSchema, editAnswwerSchema, deleteAnswwerSchema } from '../middleware/schema/answer';
 import { validateInput } from '../middleware/validation';
 
