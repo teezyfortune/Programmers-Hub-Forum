@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       userId: DataTypes.INTEGER,
-      questionId: {
+      answerId: {
         type: DataTypes.UUID,
         allowNull: false,
         references: {
-          model: 'Questions',
+          model: 'Answers',
           key: 'id',
         },
       },
@@ -25,9 +25,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     { tableName: 'comments' }
   );
-  // comments.associate = (models) => {
-  //   const { Questions } = models;
-  //   comments.belongsTo(Questions, { foreignKey: 'questionId' });
-  // };
+  comments.associate = (models) => {
+    const { Answers } = models;
+    comments.belongsTo(Answers, { foreignKey: 'answerId' });
+  };
   return comments;
 };

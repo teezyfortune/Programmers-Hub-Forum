@@ -51,3 +51,31 @@ export const getOneAnswer = async (id, userId) => {
     return err;
   }
 };
+
+export const getAspecificAnswer = async (id) => {
+  try {
+    const where = {
+      where: {
+        id,
+      },
+      order: [['createdAt', 'DESC']],
+    };
+    return await Answers.findOne(where);
+  } catch (err) {
+    return err;
+  }
+};
+
+export const getAllAnswerToAQuestion = async (questionId) => {
+  try {
+    const where = {
+      where: {
+        questionId,
+      },
+      order: [['createdAt', 'DESC']],
+    };
+    return await Answers.findAndCountAll(where);
+  } catch (err) {
+    return err;
+  }
+};
