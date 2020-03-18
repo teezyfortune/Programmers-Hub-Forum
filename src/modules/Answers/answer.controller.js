@@ -19,7 +19,6 @@ import {
 
 import { findAllComment } from '../../services/comments/comments.services';
 import Response from '../../utils/index';
-import { fetchAllQuestion } from '../questions/question.controller';
 
 export const saveAnswer = async (req, res) => {
   try {
@@ -82,10 +81,8 @@ export const destroyAnswer = async (req, res) => {
     if (!find) {
       return res.status(401).json({ status: 401, message: CANNOT_DELETE_ANSWER });
     }
-    const remove = await deleteAnswer(answerId);
-    if (remove) {
-      return Response(res, { status: 200, message: ANSWER_DELETED });
-    }
+    await deleteAnswer(answerId);
+    return Response(res, { status: 200, message: ANSWER_DELETED });
   } catch (error) {
     return Response(res, { status: 500, message: SERVER_ERROR });
   }

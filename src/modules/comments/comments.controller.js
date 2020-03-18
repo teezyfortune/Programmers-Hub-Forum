@@ -4,6 +4,7 @@ import {
   deleteComment,
   findOneComment,
   createComment,
+  findCommentById,
 } from '../../services/comments/comments.services';
 import {
   COMMENT_DELETED,
@@ -34,7 +35,6 @@ export const saveComment = async (req, res) => {
 export const editComment = async (req, res) => {
   try {
     const { commentId } = req.params;
-    console.log('>>>>>dddnd', commentId);
 
     const { userId, type, comment } = req.body;
     const find = await findOneComment(commentId, userId);
@@ -71,23 +71,21 @@ export const destroyComment = async (req, res) => {
       return Response(res, { status: 401, message: CANNOT_DELETE_COMMENT });
     }
 
-    const remove = await deleteComment(commentId);
-    if (remove) {
-      return Response(res, { status: 200, message: COMMENT_DELETED });
-    }
+    await deleteComment(commentId);
+    return Response(res, { status: 200, message: COMMENT_DELETED });
   } catch (error) {
     return Response(res, { status: 500, message: SERVER_ERROR });
   }
 };
-export const fetchOneOmment = async (req, res) => {
+export const fetchOneComment = async (req, res) => {
   try {
     const { commentId } = req.params;
-    const find = await findOneComment(commentId);
+    const find = await findCommentById(commentId);
 
     if (find.lenght === 0) {
       return Response(res, { status: 500, message: SERVER_ERROR });
     }
-    return res.status(200).json({ status: 200, message: COMMENT_RETRIEVED });
+    return res.status(200).json({ status: 200, message: COMMENT_RETRIEVED, data: find });
   } catch (err) {
     return Response(res, { status: 500, message: SERVER_ERROR });
   }

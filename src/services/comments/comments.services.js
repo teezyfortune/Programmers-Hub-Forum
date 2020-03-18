@@ -66,3 +66,17 @@ export const findAllComment = async (answerId) => {
     return error;
   }
 };
+
+export const findCommentById = async (id) => {
+  try {
+    const where = {
+      where: {
+        id,
+      },
+    };
+
+    return comments.findOne(where);
+  } catch (error) {
+    return error;
+  }
+};

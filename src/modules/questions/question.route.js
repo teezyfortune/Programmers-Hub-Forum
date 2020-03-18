@@ -156,7 +156,6 @@ questionRoutes.delete('/:id/deleteQuestion/', destroyQuestion);
  */
 questionRoutes.get('/:id/fetch-question/', fetchOneSpeciicfQuestionWithAnswer);
 
-
 /**
  * @swagger
  *
