@@ -20,6 +20,8 @@ module.exports = (sequelize, DataTypes) => {
           model: 'Questions',
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       image_url: DataTypes.STRING,
       answer: DataTypes.TEXT,
@@ -30,8 +32,8 @@ module.exports = (sequelize, DataTypes) => {
   );
   Answers.associate = (models) => {
     const { comments, Questions } = models;
-    comments.hasMany(comments);
-    comments.belongsTo(Questions);
+    Answers.hasMany(comments, { foreignKey: 'id' });
+    Answers.belongsTo(Questions, { foreignKey: 'questionId' });
   };
   return Answers;
 };

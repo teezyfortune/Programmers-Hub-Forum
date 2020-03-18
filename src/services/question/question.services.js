@@ -1,5 +1,4 @@
 import models from '../../database/models';
-import questionRoutes from '../../modules/questions/question.route';
 
 const { Questions } = models;
 
@@ -33,10 +32,14 @@ export const deleteQuestion = async (id) => {
         id,
       },
     };
-    return await Questions.destroy(where);
+    const find = await Questions.findOne(where);
+    if (find) {
+      return await find.destroy();
+    }
   } catch (error) {
     return error;
   }
+  return false;
 };
 
 export const findOneQuestion = async (id, userId) => {
@@ -47,7 +50,7 @@ export const findOneQuestion = async (id, userId) => {
         userId,
       },
     };
-    return Questions.findOne(where);
+    return await Questions.findOne(where);
   } catch (error) {
     return error;
   }

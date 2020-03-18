@@ -1,12 +1,11 @@
 import Response from '../../utils/index';
-// eslint-disable-next-line import/no-cycle
 import {
   createQuestion,
   upadateQuestion,
   deleteQuestion,
   findOneQuestion,
-  getSpecificQuestion,
   getAllQuestion,
+  getSpecificQuestion,
 } from '../../services/question/question.services';
 
 import { getAllAnswerToAQuestion } from '../../services/answers/answers.services';
@@ -94,7 +93,7 @@ export const fetchAllQuestion = async (req, res) => {
   }
 };
 
-export const fetchOneSpeciicfQuestionWithComment = async (req, res) => {
+export const fetchOneSpeciicfQuestionWithAnswer = async (req, res) => {
   try {
     const { id: questionId } = req.params;
 

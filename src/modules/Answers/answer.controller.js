@@ -19,7 +19,6 @@ import {
 
 import { findAllComment } from '../../services/comments/comments.services';
 import Response from '../../utils/index';
-import { fetchAllQuestion } from '../questions/question.controller';
 
 export const saveAnswer = async (req, res) => {
   try {

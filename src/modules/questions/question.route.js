@@ -4,11 +4,11 @@ import {
   saveQuestion,
   editQuestion,
   destroyQuestion,
-  fetchOneSpeciicfQuestionWithComment,
   fetchAllQuestion,
+  fetchOneSpeciicfQuestionWithAnswer,
 } from './question.controller';
 import { validateInput } from '../middleware/validation';
-import { questionSchema, editQuestionSchema } from '../middleware/schema/schema';
+import { questionSchema, editQuestionSchema } from '../middleware/schema/question';
 import imageUpload from '../middleware/image_upload/upload';
 
 const questionRoutes = express.Router();
@@ -49,6 +49,7 @@ const questionRoutes = express.Router();
  *        in: formData
  *        required: true
  *        type: string
+
  *    responses:
  *      201:
  *        description: Successfully created a question
@@ -60,7 +61,7 @@ questionRoutes.post('/createQuestion', validateInput(questionSchema), imageUploa
 /**
  * @swagger
  *
- * /:id/updateQuestion:
+ * /updateQuestion/:id:
  *  patch:
  *    tags:
  *      - Update Question
@@ -110,7 +111,7 @@ questionRoutes.patch(
 /**
  * @swagger
  *
- * /:id/deleteQuestion:
+ * /deleteQuestion/:id:
  *  delete:
  *    tags:
  *      - Delete Question
@@ -135,10 +136,10 @@ questionRoutes.delete('/:id/deleteQuestion/', destroyQuestion);
 /**
  * @swagger
  *
- * /:id/fetch-question:
- *  get:
+ * /:questionId/get:
+ *  delete:
  *    tags:
- *      - Specific Question
+ *      - Delete Question
  *    description: User should be able to get a question and all comments attached to it
  *    produces:
  *      - application/json
@@ -153,8 +154,7 @@ questionRoutes.delete('/:id/deleteQuestion/', destroyQuestion);
  *      500:
  *        description: Server error message
  */
-questionRoutes.get('/:id/fetch-question/', fetchOneSpeciicfQuestionWithComment);
-
+questionRoutes.get('/:id/fetch-question/', fetchOneSpeciicfQuestionWithAnswer);
 
 /**
  * @swagger

@@ -46,6 +46,7 @@ export const findOneComment = async (id, userId) => {
         userId,
       },
     };
+
     return comments.findOne(where);
   } catch (error) {
     return error;
@@ -61,6 +62,20 @@ export const findAllComment = async (answerId) => {
       order: [['createdAt', 'DESC']],
     };
     return comments.findAll(where);
+  } catch (error) {
+    return error;
+  }
+};
+
+export const findCommentById = async (id) => {
+  try {
+    const where = {
+      where: {
+        id,
+      },
+    };
+
+    return comments.findOne(where);
   } catch (error) {
     return error;
   }

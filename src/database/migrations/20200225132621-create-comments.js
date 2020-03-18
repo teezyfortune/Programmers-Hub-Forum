@@ -6,13 +6,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
+        unique: true,
       },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
       comment: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
