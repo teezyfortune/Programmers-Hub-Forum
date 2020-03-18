@@ -46,6 +46,7 @@ export const findOneComment = async (id, userId) => {
         userId,
       },
     };
+
     return comments.findOne(where);
   } catch (error) {
     return error;

@@ -10,10 +10,16 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       userId: DataTypes.INTEGER,
-      answerId: DataTypes.INTEGER,
-
+      answerId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        references: {
+          model: 'Answers',
+          key: 'id',
+        },
+      },
       comment: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },
@@ -21,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   comments.associate = (models) => {
     const { Answers } = models;
-    comments.belongsTo(Answers);
+    comments.belongsTo(Answers, { foreignKey: 'answerId' });
   };
   return comments;
 };

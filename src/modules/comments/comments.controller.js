@@ -16,7 +16,6 @@ import {
   COMMENT_RETRIEVED,
 } from '../../utils/constant';
 
-
 export const saveComment = async (req, res) => {
   try {
     const { answerId } = req.params;
@@ -35,16 +34,18 @@ export const saveComment = async (req, res) => {
 export const editComment = async (req, res) => {
   try {
     const { commentId } = req.params;
-    const { userId, type, comment } = req.body;
-    const findOne = await findOneComment(commentId, userId);
+    console.log('>>>>>dddnd', commentId);
 
-    if (!findOne && type === AUTHORISED) {
+    const { userId, type, comment } = req.body;
+    const find = await findOneComment(commentId, userId);
+
+    if (!find && type === AUTHORISED) {
       const edit = await upadateComment({ comment }, commentId);
 
       return Response(res, { status: 200, message: COMMENT_UPDATED, data: edit });
     }
 
-    if (!findOne) {
+    if (!find) {
       return Response(res, { status: 401, message: CANNOT_EDIT_COMMENT });
     }
 
@@ -70,8 +71,10 @@ export const destroyComment = async (req, res) => {
       return Response(res, { status: 401, message: CANNOT_DELETE_COMMENT });
     }
 
-    await deleteComment(commentId);
-    return Response(res, { status: 200, message: COMMENT_DELETED });
+    const remove = await deleteComment(commentId);
+    if (remove) {
+      return Response(res, { status: 200, message: COMMENT_DELETED });
+    }
   } catch (error) {
     return Response(res, { status: 500, message: SERVER_ERROR });
   }

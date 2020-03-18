@@ -21,6 +21,8 @@ module.exports = {
           model: 'Questions',
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       userId: {
         type: Sequelize.INTEGER,

@@ -82,8 +82,10 @@ export const destroyAnswer = async (req, res) => {
     if (!find) {
       return res.status(401).json({ status: 401, message: CANNOT_DELETE_ANSWER });
     }
-    await deleteAnswer(answerId);
-    return Response(res, { status: 200, message: ANSWER_DELETED });
+    const remove = await deleteAnswer(answerId);
+    if (remove) {
+      return Response(res, { status: 200, message: ANSWER_DELETED });
+    }
   } catch (error) {
     return Response(res, { status: 500, message: SERVER_ERROR });
   }

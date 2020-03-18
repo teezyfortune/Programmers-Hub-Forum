@@ -1,12 +1,11 @@
 import Response from '../../utils/index';
-// eslint-disable-next-line import/no-cycle
 import {
   createQuestion,
   upadateQuestion,
   deleteQuestion,
   findOneQuestion,
-  getSpecificQuestion,
   getAllQuestion,
+  getSpecificQuestion,
 } from '../../services/question/question.services';
 
 import { getAllAnswerToAQuestion } from '../../services/answers/answers.services';
@@ -63,6 +62,7 @@ export const editQuestion = async (req, res) => {
 export const destroyQuestion = async (req, res) => {
   try {
     const { id: questionId } = req.params;
+    console.log('>>>>>', questionId);
     const { userId, type } = req.body;
     const findOne = await findOneQuestion(questionId, userId);
 
@@ -75,9 +75,14 @@ export const destroyQuestion = async (req, res) => {
       return Response(res, { status: 401, message: CANNOT_DELETE_QUESTION });
     }
 
-    await deleteQuestion(questionId);
-    return Response(res, { status: 200, message: DELETE_QUESTION });
+    const remove = await deleteQuestion(questionId);
+    console.log('>>>>', remove);
+
+    if (remove) {
+      return Response(res, { status: 200, message: DELETE_QUESTION });
+    }
   } catch (error) {
+    console.log('>>>>', error.errors);
     return Response(res, { status: 500, message: SERVER_ERROR });
   }
 };
@@ -85,6 +90,7 @@ export const destroyQuestion = async (req, res) => {
 export const fetchAllQuestion = async (req, res) => {
   try {
     const questions = await getAllQuestion();
+    console.log('.>.....', questions);
     if (questions.length === 0) {
       return res.status(200).jso({ status: 200, message: NO_QUESTION });
     }
@@ -94,7 +100,7 @@ export const fetchAllQuestion = async (req, res) => {
   }
 };
 
-export const fetchOneSpeciicfQuestionWithComment = async (req, res) => {
+export const fetchOneSpeciicfQuestionWithAnswer = async (req, res) => {
   try {
     const { id: questionId } = req.params;
 
