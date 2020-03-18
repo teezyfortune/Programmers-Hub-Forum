@@ -1,5 +1,9 @@
 import express from 'express';
-import { saveAnswer, editAnswer, destroyAnswer } from './answer.controller';
+import {
+  saveAnswer,
+  editAnswer,
+  destroyAnswer,
+fetASpecifAnswerAndComments} from './answer.controller';
 import { answerSchema, editAnswwerSchema, deleteAnswwerSchema } from '../middleware/schema/answer';
 import { validateInput } from '../middleware/validation';
 
@@ -122,4 +126,26 @@ answerRoute.patch('/:answerId/editAnswer', validateInput(editAnswwerSchema), edi
  */
 answerRoute.delete('/:answerId/deleteAnswer', validateInput(deleteAnswwerSchema), destroyAnswer);
 
+/**
+ * @swagger
+ *
+ * /:answerId/fetch-answer:
+ *  get:
+ *    tags:
+ *      - Specific Question
+ *    description: User should be able to get a question and all comments attached to it
+ *    produces:
+ *      - application/json
+ *    parameters:
+ *      - name: answerId
+ *        description: answerId
+ *        required: true
+ *        type: uuid
+ *    responses:
+ *      200:
+ *        description: Successfully created a question
+ *      500:
+ *        description: Server error message
+ */
+answerRoute.get('/:answerId/fetch-answer', fetASpecifAnswerAndComments);
 export default answerRoute;

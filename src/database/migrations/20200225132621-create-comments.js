@@ -6,18 +6,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
+        unique: true,
       },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-      },
-      questionId: {
-        type: Sequelize.UUID,
-        allowNull: false,
-        references: {
-          model: 'Questions',
-          key: 'id',
-        },
       },
       comment: {
         type: Sequelize.STRING,

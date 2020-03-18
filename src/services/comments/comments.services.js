@@ -2,9 +2,9 @@ import models from '../../database/models';
 
 const { comments } = models;
 
-export const createComment = async (userId, comment, questionId) => {
+export const createComment = async (items, answer) => {
   try {
-    return await comments.create({ userId, comment, questionId });
+    return await comments.create({ ...items, answer });
   } catch (error) {
     return error;
   }
@@ -46,17 +46,18 @@ export const findOneComment = async (id, userId) => {
         userId,
       },
     };
+
     return comments.findOne(where);
   } catch (error) {
     return error;
   }
 };
 
-export const findAllComment = async (questionId) => {
+export const findAllComment = async (answerId) => {
   try {
     const where = {
       where: {
-        questionId,
+        answerId,
       },
       order: [['createdAt', 'DESC']],
     };

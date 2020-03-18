@@ -1,14 +1,14 @@
 import Response from '../../utils/index';
-// eslint-disable-next-line import/no-cycle
 import {
   createQuestion,
   upadateQuestion,
   deleteQuestion,
   findOneQuestion,
-  getSpecificQuestionAndTheirComents,
+  getAllQuestion,
+  getSpecificQuestion,
 } from '../../services/question/question.services';
 
-import { findAllComment } from '../../services/comments/comments.services';
+import { getAllAnswerToAQuestion } from '../../services/answers/answers.services';
 import {
   QUESTION_SUCCESS,
   SERVER_ERROR,
@@ -19,6 +19,8 @@ import {
   QUESTION_RETRIEVED,
   NO_COMMENTS,
   AUTHORISED,
+  ALL_QUESTION,
+  NO_QUESTION,
 } from '../../utils/constant';
 
 export const saveQuestion = async (req, res) => {
@@ -60,6 +62,7 @@ export const editQuestion = async (req, res) => {
 export const destroyQuestion = async (req, res) => {
   try {
     const { id: questionId } = req.params;
+    console.log('>>>>>', questionId);
     const { userId, type } = req.body;
     const findOne = await findOneQuestion(questionId, userId);
 
@@ -72,22 +75,39 @@ export const destroyQuestion = async (req, res) => {
       return Response(res, { status: 401, message: CANNOT_DELETE_QUESTION });
     }
 
-    await deleteQuestion(questionId);
-    return Response(res, { status: 200, message: DELETE_QUESTION });
+    const remove = await deleteQuestion(questionId);
+    console.log('>>>>', remove);
+
+    if (remove) {
+      return Response(res, { status: 200, message: DELETE_QUESTION });
+    }
   } catch (error) {
+    console.log('>>>>', error.errors);
     return Response(res, { status: 500, message: SERVER_ERROR });
   }
 };
-export const fetchOneQuestion = async () => {};
 
-export const fetchOneSpeciicfQuestionWithComment = async (req, res) => {
+export const fetchAllQuestion = async (req, res) => {
+  try {
+    const questions = await getAllQuestion();
+    console.log('.>.....', questions);
+    if (questions.length === 0) {
+      return res.status(200).jso({ status: 200, message: NO_QUESTION });
+    }
+    return res.status(200).json({ status: 200, message: ALL_QUESTION, data: questions });
+  } catch (err) {
+    return Response(res, { status: 500, message: SERVER_ERROR });
+  }
+};
+
+export const fetchOneSpeciicfQuestionWithAnswer = async (req, res) => {
   try {
     const { id: questionId } = req.params;
 
-    const question = await getSpecificQuestionAndTheirComents(questionId);
-    const comments = await findAllComment(questionId);
+    const question = await getSpecificQuestion(questionId);
+    const answers = await getAllAnswerToAQuestion(questionId);
 
-    if (comments.length === 0) {
+    if (answers.length === 0) {
       return res.status(200).json({
         status: 200,
         message: QUESTION_RETRIEVED,
@@ -101,7 +121,7 @@ export const fetchOneSpeciicfQuestionWithComment = async (req, res) => {
     return res.status(200).json({
       status: 200,
       message: QUESTION_RETRIEVED,
-      data: { question, comments },
+      data: { question, answers },
     });
   } catch (error) {
     return Response(res, { status: 500, message: SERVER_ERROR });
