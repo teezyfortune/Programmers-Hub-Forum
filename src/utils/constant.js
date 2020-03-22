@@ -23,3 +23,5 @@ export const CANNOT_EDIT_ANSWSER = 'You cannot edit this Answer, Please make sur
 export const CANNOT_DELETE_ANSWER =
   'You cannot delete another person answer, Please make sure you are loggedIn';
 export const ANSWER_DELETED = 'You have successfully deleted answer';
+export const UPVOTE = 'upvote';
+export const DOWNVOTE = 'downvote';

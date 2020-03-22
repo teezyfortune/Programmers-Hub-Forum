@@ -1,26 +1,28 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('comments', {
+    return queryInterface.createTable('vote_histories', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        DefaultValue: Sequelize.UUIDV4,
       },
       userId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
       },
-      // answerId: {
-      //   type: Sequelize.UUID,
-      //   allowNull: false,
-      //   references: {
-      //     model: 'Answers',
-      //     key: 'id',
-      //   },
-      // },
-      comment: {
-        type: Sequelize.TEXT,
+      questionId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'Questions',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      vote_type: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +35,6 @@ module.exports = {
     });
   },
   down: (queryInterface) => {
-    return queryInterface.dropTable('comments');
+    return queryInterface.dropTable('vote_histories');
   },
 };
