@@ -19,19 +19,3 @@ export const editQuestionSchema = Joi.object({
   userId: Joi.number().required(),
   type: Joi.string(),
 });
-
-// comment schema start
-export const commentSchema = Joi.object({
-  userId: Joi.number().required(),
-  comment: Joi.string().required(),
-  questionId: Joi.string().uuid(),
-});
-
-export const editCommentSchema = Joi.object({
-  comment: Joi.string(),
-  commentId: Joi.string()
-    .uuid()
-    .required(),
-  userId: Joi.number().required(),
-  type: Joi.string(),
-});

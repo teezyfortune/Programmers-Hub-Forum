@@ -52,6 +52,20 @@ export const getOneAnswer = async (id, userId) => {
   }
 };
 
+export const getAspecificAnswer = async (id) => {
+  try {
+    const where = {
+      where: {
+        id,
+      },
+      order: [['createdAt', 'DESC']],
+    };
+    return await Answers.findOne(where);
+  } catch (err) {
+    return err;
+  }
+};
+
 export const getAllAnswerToAQuestion = async (questionId) => {
   try {
     const where = {

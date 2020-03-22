@@ -1,9 +1,10 @@
 import Response from '../../utils/index';
-import models from '../../database/models';
 import {
   upadateComment,
   deleteComment,
   findOneComment,
+  createComment,
+  findCommentById,
 } from '../../services/comments/comments.services';
 import {
   COMMENT_DELETED,
@@ -13,19 +14,18 @@ import {
   CANNOT_EDIT_COMMENT,
   CANNOT_DELETE_COMMENT,
   AUTHORISED,
+  COMMENT_RETRIEVED,
 } from '../../utils/constant';
-
-const { comments } = models;
 
 export const saveComment = async (req, res) => {
   try {
     const { answerId } = req.params;
+    const reply = await createComment(req.body, answerId);
 
-    const question = await comments.create(req.body, answerId);
     return Response(res, {
       status: 201,
       message: COMMENT_SUCCESS,
-      data: question,
+      data: reply,
     });
   } catch (err) {
     return Response(res, { status: 500, message: SERVER_ERROR });
@@ -35,16 +35,17 @@ export const saveComment = async (req, res) => {
 export const editComment = async (req, res) => {
   try {
     const { commentId } = req.params;
-    const { userId, type, comment } = req.body;
-    const findOne = await findOneComment(commentId, userId);
 
-    if (!findOne && type === AUTHORISED) {
+    const { userId, type, comment } = req.body;
+    const find = await findOneComment(commentId, userId);
+
+    if (!find && type === AUTHORISED) {
       const edit = await upadateComment({ comment }, commentId);
 
       return Response(res, { status: 200, message: COMMENT_UPDATED, data: edit });
     }
 
-    if (!findOne) {
+    if (!find) {
       return Response(res, { status: 401, message: CANNOT_EDIT_COMMENT });
     }
 
@@ -76,4 +77,16 @@ export const destroyComment = async (req, res) => {
     return Response(res, { status: 500, message: SERVER_ERROR });
   }
 };
-// export const fetchOneOmment = async () => {};
+export const fetchOneComment = async (req, res) => {
+  try {
+    const { commentId } = req.params;
+    const find = await findCommentById(commentId);
+
+    if (find.lenght === 0) {
+      return Response(res, { status: 500, message: SERVER_ERROR });
+    }
+    return res.status(200).json({ status: 200, message: COMMENT_RETRIEVED, data: find });
+  } catch (err) {
+    return Response(res, { status: 500, message: SERVER_ERROR });
+  }
+};

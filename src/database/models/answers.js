@@ -16,18 +16,23 @@ module.exports = (sequelize, DataTypes) => {
       questionId: {
         type: DataTypes.UUID,
         allowNull: false,
-        references: {
-          model: 'Questions',
-          key: 'id',
-        },
+        // references: {
+        //   model: 'Questions',
+        //   key: 'id',
+        // },
+        // onUpdate: 'CASCADE',
+        // onDelete: 'CASCADE',
       },
       image_url: DataTypes.STRING,
       answer: DataTypes.TEXT,
     },
-    { tableName: 'Answers' }
+    {
+      tableName: 'Answers',
+    }
   );
-  // answers.associate = function(models) {
-  //   // associations can be defined here
-  // };
+  Answers.associate = (models) => {
+    const { Questions } = models;
+    Answers.belongsTo(Questions, { foreignKey: 'questionId' });
+  };
   return Answers;
 };

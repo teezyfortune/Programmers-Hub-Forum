@@ -38,16 +38,3 @@ export const saveVote = async (questionId) => {
     return err;
   }
 };
-
-export const downVote = async (questionId) => {
-  try {
-    const where = {
-      where: {
-        id: questionId,
-      },
-    };
-    return await Questions.decrement('votes', where);
-  } catch (err) {
-    return err;
-  }
-};

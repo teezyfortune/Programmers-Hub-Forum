@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 0,
         allowNull: false,
-      }
+      },
     },
     {}
   );
@@ -27,7 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     Questions.hasMany(Answers, { foreignKey: 'id' });
     Questions.hasMany(Votes, { foreignKey: 'id' });
     Questions.hasMany(voteHistory, { foreignKey: 'id' });
-
   };
   return Questions;
 };

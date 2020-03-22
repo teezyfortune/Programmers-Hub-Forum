@@ -17,10 +17,12 @@ module.exports = {
       questionId: {
         type: Sequelize.UUID,
         allowNull: false,
-        references: {
-          model: 'Questions',
-          key: 'id',
-        },
+        // references: {
+        //   model: 'Questions',
+        //   key: 'id',
+        // },
+        // onUpdate: 'CASCADE',
+        // onDelete: 'CASCADE',
       },
       userId: {
         type: Sequelize.INTEGER,

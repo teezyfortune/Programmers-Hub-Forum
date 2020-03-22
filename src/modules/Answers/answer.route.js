@@ -1,5 +1,10 @@
 import express from 'express';
-import { saveAnswer, editAnswer, destroyAnswer } from './answer.controller';
+import {
+  saveAnswer,
+  editAnswer,
+  destroyAnswer,
+  fetASpecifAnswerAndComments,
+} from './answer.controller';
 import { answerSchema, editAnswwerSchema, deleteAnswwerSchema } from '../middleware/schema/answer';
 import { validateInput } from '../middleware/validation';
 
@@ -8,14 +13,14 @@ const answerRoute = express.Router();
 /**
  * @swagger
  *
- * /:questionId/answer:
- *  post:
- *   tags:
+ * /:questionId/answer/:
+ * post:
+ *  tags:
  *    - Answer
- *   description: User can answer to another user question
- *   produces:
+ *  description: User can answer to another user question
+ *  produces:
  *    - application/json
- *   parameters:
+ *  parameters:
  *    - name: image_url
  *      description: any image that can describe the answer
  *      required: false
@@ -36,7 +41,7 @@ const answerRoute = express.Router();
  *      required: true
  *      type: uuid
  *      in: requestBody
- *   responses:
+ *  responses:
  *      201:
  *        description: successfully created
  *      500:
@@ -47,21 +52,21 @@ answerRoute.post('/:questionId/answer', validateInput(answerSchema), saveAnswer)
 /**
  * @swagger
  *
- * /:answerId/editAnswer/:
- *  patch:
- *   tags:
- *    - Edit Answer
- *   description: User or moderator can edit their answer
- *   produces:
+ * /:questionId/editAnswer/:
+ * patch:
+ *  tags:
+ *    - Answer
+ *  description: User can answer to another user question
+ *  produces:
  *    - application/json
- *   parameters:
+ *  parameters:
  *    - name: image_url
  *      description: any image that can describe the answer
  *      required: false
  *      type: string
  *      in: formData
  *    - name: answer
- *      description: edit an already created answer
+ *      description: response to a question
  *      required: true
  *      type: text
  *      in: formData
@@ -85,11 +90,9 @@ answerRoute.post('/:questionId/answer', validateInput(answerSchema), saveAnswer)
  *      required: true
  *      type: string
  *      in: requestBody
- *   responses:
- *      200:
+ *  responses:
+ *      201:
  *        description: successfully created
- *      401:
- *        description: Unauthorized
  *      500:
  *        description: Internal server error
  */
@@ -98,14 +101,14 @@ answerRoute.patch('/:answerId/editAnswer', validateInput(editAnswwerSchema), edi
 /**
  * @swagger
  *
- * /:answerId/deleteAnswer:
- *  delete:
- *   tags:
- *    - Delete Answer
- *   description: User or moderator can delete an answer
- *   produces:
+ * /:answerId/editAnswer/:
+ * patch:
+ *  tags:
+ *    - Answer
+ *  description: User can answer to another user question
+ *  produces:
  *    - application/json
- *   parameters:
+ *  parameters:
  *    - name: userId
  *      description: UserId
  *      required: true
@@ -116,14 +119,34 @@ answerRoute.patch('/:answerId/editAnswer', validateInput(editAnswwerSchema), edi
  *      required: true
  *      type: string
  *      in: requestBody
- *   responses:
- *      200:
+ *  responses:
+ *      201:
  *        description: successfully created
- *      401:
- *        description: Unauthorized
  *      500:
  *        description: Internal server error
  */
 answerRoute.delete('/:answerId/deleteAnswer', validateInput(deleteAnswwerSchema), destroyAnswer);
 
+/**
+ * @swagger
+ *
+ * /:answerId/fetch-answer:
+ *  get:
+ *    tags:
+ *      - Specific Question
+ *    description: User should be able to get a question and all comments attached to it
+ *    produces:
+ *      - application/json
+ *    parameters:
+ *      - name: answerId
+ *        description: answerId
+ *        required: true
+ *        type: uuid
+ *    responses:
+ *      200:
+ *        description: Successfully created a question
+ *      500:
+ *        description: Server error message
+ */
+answerRoute.get('/:answerId/fetch-answer', fetASpecifAnswerAndComments);
 export default answerRoute;

@@ -1,14 +1,14 @@
 import express from 'express';
-import { saveComment, editComment, destroyComment } from './comments.controller';
+import { saveComment, editComment, destroyComment, fetchOneComment } from './comments.controller';
 import { validateInput } from '../middleware/validation';
-import { commentSchema, editCommentSchema } from '../middleware/schema/schema';
+import { commentSchema, editCommentSchema } from '../middleware/schema/comments';
 
 const commentRoutes = express.Router();
 
 /**
  * @swagger
  *
- * /createComment/:questionId:
+ * /createComment/:answerId:
  *  post:
  *    tags:
  *      - Create Comments
@@ -37,12 +37,12 @@ const commentRoutes = express.Router();
  *      500:
  *        description: Server error message
  */
-commentRoutes.post('/:questionId/createComment', validateInput(commentSchema), saveComment);
+commentRoutes.post('/:answerId/createComment', validateInput(commentSchema), saveComment);
 
 /**
  * @swagger
  *
- * /:questionId/updateComment:
+ * /:answerId/updateComment:
  *  patch:
  *    tags:
  *      - Update Comment
@@ -71,7 +71,7 @@ commentRoutes.patch('/:commentId/updateComment', validateInput(editCommentSchema
 /**
  * @swagger
  *
- * /:questionId/deleteComment:
+ * /:answerId/deleteComment:
  *  delete:
  *    tags:
  *      - Delete Comment
@@ -96,7 +96,7 @@ commentRoutes.delete('/:commentId/deleteComment', destroyComment);
 /**
  * @swagger
  *
- * /:questionId/updateQuestion:
+ * /:answerId/updateQuestion:
  *  get:
  *    tags:
  *      - question
@@ -114,5 +114,5 @@ commentRoutes.delete('/:commentId/deleteComment', destroyComment);
  *      500:
  *        description: Server error message
  */
-// commentRoutes.get('/fetcOneQuestion/:id');
+commentRoutes.get('/:commentId/fetchOneComment', fetchOneComment);
 export default commentRoutes;

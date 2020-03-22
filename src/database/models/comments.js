@@ -19,15 +19,15 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       comment: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },
     { tableName: 'comments' }
   );
-  // comments.associate = (models) => {
-  //   const { Questions } = models;
-  //   comments.belongsTo(Questions, { foreignKey: 'questionId' });
-  // };
+  comments.associate = (models) => {
+    const { Answers } = models;
+    comments.belongsTo(Answers, { foreignKey: 'answerId' });
+  };
   return comments;
 };
