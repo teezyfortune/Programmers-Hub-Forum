@@ -23,8 +23,13 @@ export const CANNOT_EDIT_ANSWSER = 'You cannot edit this Answer, Please make sur
 export const CANNOT_DELETE_ANSWER =
   'You cannot delete another person answer, Please make sure you are loggedIn';
 export const ANSWER_DELETED = 'You have successfully deleted answer';
+export const UPVOTE = 'upvote';
+export const DOWNVOTE = 'downvote';
 export const ALL_QUESTION = 'All questions retrieved';
 export const NO_QUESTION = 'No question found';
 export const SPECIFIC_ANSWER = 'Answer retrieved successfully';
 export const ANSWER_COMMENT = 'No comment found';
 export const COMMENT_RETRIEVED = 'Comment retrieved successfully';
+export const UPVOTE_COUNT = 'Total upvote retrieved for this question';
+export const DOWNVOTE_COUNT = 'Total downvote retrieved for this question';
+export const NO_COUNT = 'No vote found here';

@@ -16,12 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       questionId: {
         type: DataTypes.UUID,
         allowNull: false,
-        references: {
-          model: 'Questions',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        // references: {
+        //   model: 'Questions',
+        //   key: 'id',
+        // },
+        // onUpdate: 'CASCADE',
+        // onDelete: 'CASCADE',
       },
       image_url: DataTypes.STRING,
       answer: DataTypes.TEXT,
@@ -31,8 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   Answers.associate = (models) => {
-    const { comments, Questions } = models;
-    Answers.hasMany(comments, { foreignKey: 'id' });
+    const { Questions } = models;
     Answers.belongsTo(Questions, { foreignKey: 'questionId' });
   };
   return Answers;

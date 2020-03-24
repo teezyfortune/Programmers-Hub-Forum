@@ -1,6 +1,7 @@
+import { Op } from 'sequelize';
 import models from '../../database/models';
 
-const { Questions } = models;
+const { Questions, voteHistory } = models;
 
 export const createQuestion = async (items) => {
   try {
@@ -73,6 +74,19 @@ export const getSpecificQuestion = async (id) => {
 export const getAllQuestion = async () => {
   try {
     return await Questions.findAll({ order: [['createdAt', 'DESC']] });
+  } catch (err) {
+    return err;
+  }
+};
+
+export const getAllUpvote = async (questionId, voteType) => {
+  try {
+    const where = {
+      where: {
+        [Op.and]: [{ questionId }, { vote_type: voteType }],
+      },
+    };
+    return await voteHistory.findAndCountAll(where);
   } catch (err) {
     return err;
   }

@@ -6,6 +6,7 @@ import {
   findOneQuestion,
   getAllQuestion,
   getSpecificQuestion,
+  getAllvoteType,
 } from '../../services/question/question.services';
 
 import { getAllAnswerToAQuestion } from '../../services/answers/answers.services';
@@ -21,6 +22,11 @@ import {
   AUTHORISED,
   ALL_QUESTION,
   NO_QUESTION,
+  UPVOTE,
+  NO_COUNT,
+  DOWNVOTE,
+  DOWNVOTE_COUNT,
+  UPVOTE_COUNT,
 } from '../../utils/constant';
 
 export const saveQuestion = async (req, res) => {
@@ -83,12 +89,14 @@ export const destroyQuestion = async (req, res) => {
 
 export const fetchAllQuestion = async (req, res) => {
   try {
-    const questions = await getAllQuestion();
+    const questionId = req.params.id;
+    const questions = await getAllQuestion(questionId);
+
     if (questions.length === 0) {
-      return res.status(200).jso({ status: 200, message: NO_QUESTION });
+      return res.status(200).json({ status: 200, message: NO_QUESTION });
     }
     return res.status(200).json({ status: 200, message: ALL_QUESTION, data: questions });
-  } catch (err) {
+  } catch (error) {
     return Response(res, { status: 500, message: SERVER_ERROR });
   }
 };
@@ -116,6 +124,34 @@ export const fetchOneSpeciicfQuestionWithAnswer = async (req, res) => {
       message: QUESTION_RETRIEVED,
       data: { question, answers },
     });
+  } catch (error) {
+    return Response(res, { status: 500, message: SERVER_ERROR });
+  }
+};
+
+export const fetchAllUpvote = async (req, res) => {
+  try {
+    const questionId = req.params.id;
+
+    const vote = await getAllvoteType(questionId, UPVOTE);
+    if (vote.length === 0) {
+      return res.status(200).json({ status: 200, message: NO_COUNT });
+    }
+    return res.status(200).json({ status: 200, message: UPVOTE_COUNT, data: vote.count });
+  } catch (error) {
+    return Response(res, { status: 500, message: SERVER_ERROR });
+  }
+};
+
+export const fetchAllDownVote = async (req, res) => {
+  try {
+    const questionId = req.params.id;
+
+    const vote = await getAllvoteType(questionId, DOWNVOTE);
+    if (vote.length === 0) {
+      return res.status(200).json({ status: 200, message: NO_COUNT });
+    }
+    return res.status(200).json({ status: 200, message: DOWNVOTE_COUNT, data: vote.count });
   } catch (error) {
     return Response(res, { status: 500, message: SERVER_ERROR });
   }

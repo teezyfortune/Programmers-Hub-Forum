@@ -6,6 +6,8 @@ import {
   destroyQuestion,
   fetchAllQuestion,
   fetchOneSpeciicfQuestionWithAnswer,
+  fetchAllUpvote,
+  fetchAllDownVote,
 } from './question.controller';
 import { validateInput } from '../middleware/validation';
 import { questionSchema, editQuestionSchema } from '../middleware/schema/question';
@@ -172,6 +174,9 @@ questionRoutes.get('/:id/fetch-question/', fetchOneSpeciicfQuestionWithAnswer);
  *      500:
  *        description: Server error message
  */
-questionRoutes.get('/allQuestions/', fetchAllQuestion);
+questionRoutes.get('/questions/:id/allQuestions/', fetchAllQuestion);
+
+questionRoutes.get('/question/:id/totalUpvote', fetchAllUpvote);
+questionRoutes.get('/question/:id/totalDownvote', fetchAllDownVote);
 
 export default questionRoutes;
