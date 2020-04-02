@@ -2,25 +2,41 @@ import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import supertest from 'supertest';
 import app from '../../app';
+
 import {
   COMMENT_SUCCESS,
   COMMENT_UPDATED,
   CANNOT_EDIT_COMMENT,
   CANNOT_DELETE_COMMENT,
   COMMENT_DELETED,
+  ANSWER_SUCCESS,
 } from '../../utils/constant';
 
 import * as mocks from './__mocks__/index';
 
 const request = supertest(app);
-
+let answer;
+let comment;
 describe('COMMENT API', () => {
-  it('should be able comment on a question', (done) => {
+  it('should be able comment on Answer', (done) => {
     request
-      .post(mocks.baseUrl)
+      .post(mocks.baseUrlAnswer)
+      .send(mocks.newAnswer)
+      .end((err, response) => {
+        answer = response.body.data;
+        if (err) done(err);
+        expect(response.statusCode).to.equals(201);
+        expect(response.body.message).to.equals(ANSWER_SUCCESS);
+        done();
+      });
+  });
+  it('should be able comment on Answer', (done) => {
+    request
+      .post(`/api/v1/${answer.id}/createComment`)
       .send(mocks.newComment)
       .end((err, response) => {
         if (err) done(err);
+        comment = response.body.data;
         expect(response.statusCode).to.equals(201);
         expect(response.body.message).to.equals(COMMENT_SUCCESS);
         done();
@@ -39,7 +55,7 @@ describe('COMMENT API', () => {
   });
   it('should be able to update a Comment', (done) => {
     request
-      .patch(mocks.baseUpdate)
+      .patch(`/api/v1/${comment.id}/updateComment`)
       .send(mocks.updateComment)
       .end((err, response) => {
         if (err) done(err);
@@ -48,10 +64,10 @@ describe('COMMENT API', () => {
         done();
       });
   });
-  it('Moderator should be able to updatre comment', (done) => {
+  it('Moderator should be able to update comment', (done) => {
     request
-      .patch(mocks.baseUpdate)
-      .send(mocks.moderatorUpdateComment)
+      .patch(`/api/v1/${comment.id}/updateComment`)
+      .send(mocks.updateComment)
       .end((err, response) => {
         if (err) done(err);
         expect(response.statusCode).to.equals(200);
@@ -62,7 +78,7 @@ describe('COMMENT API', () => {
 
   it('should return cannot update comment', (done) => {
     request
-      .patch(mocks.baseInvalidUpdate)
+      .patch(`/api/v1/${comment.id}/updateComment`)
       .send(mocks.invalidUpdateComment)
       .end((err, response) => {
         if (err) done(err);
@@ -84,7 +100,7 @@ describe('COMMENT API', () => {
   });
   it('should delete a comment', (done) => {
     request
-      .delete(mocks.baseValidDelete)
+      .delete(`/api/v1/${comment.id}/deleteComment`)
       .send(mocks.del)
       .end((err, response) => {
         if (err) done(err);

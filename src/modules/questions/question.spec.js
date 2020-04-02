@@ -51,7 +51,7 @@ describe('CREATE QUESTION API', () => {
       });
   });
 
-  it('should be able to update a question', (done) => {
+  it('should be una', (done) => {
     request
       .patch(mocks.baseInvalidUpdate)
       .send(mocks.invalidUpdateQuestion)

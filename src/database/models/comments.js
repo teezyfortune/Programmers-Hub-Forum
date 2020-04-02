@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
           model: 'Answers',
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       comment: {
         type: DataTypes.STRING,

@@ -4,6 +4,7 @@ import {
   getOneAnswer,
   deleteAnswer,
   getAspecificAnswer,
+  getAllUserAnswer,
 } from '../../services/answers/answers.services';
 import {
   ANSWER_SUCCESS,
@@ -88,7 +89,7 @@ export const destroyAnswer = async (req, res) => {
   }
 };
 
-export const fetASpecifAnswerAndComments = async (req, res) => {
+export const fetchASpecifAnswerAndComments = async (req, res) => {
   try {
     const { answerId } = req.params;
     const answer = await getAspecificAnswer(answerId);
@@ -100,6 +101,28 @@ export const fetASpecifAnswerAndComments = async (req, res) => {
       .status(200)
       .json({ status: 200, message: SPECIFIC_ANSWER, data: { answer, comments } });
   } catch (error) {
+    return Response(res, { status: 500, message: SERVER_ERROR });
+  }
+};
+
+/** returns the count of question answered by user,  */
+export const fetchCountForUserAnswers = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const total = await getAllUserAnswer(userId);
+    if (total === 0) {
+      return res.status(200).json({
+        status: 200,
+        message: `You have  answered to ${total} questions`,
+      });
+    }
+    return res.status(200).json({
+      status: 200,
+      message: 'Total number of question you answered is successfully',
+      data: total,
+    });
+  } catch (err) {
     return Response(res, { status: 500, message: SERVER_ERROR });
   }
 };

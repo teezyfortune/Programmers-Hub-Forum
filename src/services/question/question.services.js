@@ -79,7 +79,7 @@ export const getAllQuestion = async () => {
   }
 };
 
-export const getAllUpvote = async (questionId, voteType) => {
+export const getAllvoteType = async (questionId, voteType) => {
   try {
     const where = {
       where: {
@@ -87,6 +87,34 @@ export const getAllUpvote = async (questionId, voteType) => {
       },
     };
     return await voteHistory.findAndCountAll(where);
+  } catch (err) {
+    return err;
+  }
+};
+
+/** retrieve all answer to a question and their count */
+export const getAllUserQuestions = async (userId) => {
+  try {
+    const where = {
+      where: {
+        userId,
+      },
+    };
+    const question = await Questions.findAndCountAll(where);
+    return question.count;
+  } catch (err) {
+    return err;
+  }
+};
+
+export const getRelatedQuestion = async (question) => {
+  try {
+    const where = {
+      where: {
+        question: { [Op.iLike]: `%${question}%` },
+      },
+    };
+    return await Questions.findAndCountAll(where);
   } catch (err) {
     return err;
   }

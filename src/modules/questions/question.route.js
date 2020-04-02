@@ -8,6 +8,8 @@ import {
   fetchOneSpeciicfQuestionWithAnswer,
   fetchAllUpvote,
   fetchAllDownVote,
+  fetchCountoFuserQuestion,
+  fetchRelatedQuestion,
 } from './question.controller';
 import { validateInput } from '../middleware/validation';
 import { questionSchema, editQuestionSchema } from '../middleware/schema/question';
@@ -176,7 +178,70 @@ questionRoutes.get('/:id/fetch-question/', fetchOneSpeciicfQuestionWithAnswer);
  */
 questionRoutes.get('/questions/:id/allQuestions/', fetchAllQuestion);
 
+/**
+ * @swagger
+ *
+ * /question/:id/totalUpvote:
+ *  get:
+ *    tags:
+ *      - All questions
+ *    description: User should be see the number of upvote on a question
+ *    parameters:
+ *      - name: id
+ *        description: Questionid
+ *        required: true
+ *        type: uuid
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: Ok
+ *      500:
+ *        description: Server error message
+ */
 questionRoutes.get('/question/:id/totalUpvote', fetchAllUpvote);
+
+/**
+ * @swagger
+ *
+ * /question/:id/totalDownvote:
+ *  get:
+ *    tags:
+ *      - All questions
+ *    description: User should be see the number of downvote on a question
+ *    parameters:
+ *      - name: id
+ *        description: Questionid
+ *        required: true
+ *        type: uuid
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: Ok
+ *      500:
+ *        description: Server error message
+ */
 questionRoutes.get('/question/:id/totalDownvote', fetchAllDownVote);
+
+/**
+ * @swagger
+ *
+ * /allQuestions:
+ *  get:
+ *    tags:
+ *      - All questions
+ *    description: User should be all be to see the number of question they have asked in the forum
+ *    produces:
+ *      - application/json
+ *    responses:
+ *      200:
+ *        description: Ok
+ *      500:
+ *        description: Server error message
+ */
+questionRoutes.get('/user/:userId/question-count', fetchCountoFuserQuestion);
+
+questionRoutes.get('/question/related', fetchRelatedQuestion);
 
 export default questionRoutes;

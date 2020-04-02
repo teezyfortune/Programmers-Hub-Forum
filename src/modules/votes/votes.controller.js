@@ -10,7 +10,7 @@ export const saveUpvote = async (req, res) => {
     const find = await findOneVoter(questionId, userId, UPVOTE);
 
     if (find) {
-      return res.status(200).json({
+      return res.status(409).json({
         message: 'Vote already taken',
       });
     }
@@ -39,7 +39,7 @@ export const saveDownVote = async (req, res) => {
     const find = await findOneVoter(questionId, userId, DOWNVOTE);
 
     if (find) {
-      return res.status(200).json({
+      return res.status(409).json({
         message: 'Vote already taken',
       });
     }
