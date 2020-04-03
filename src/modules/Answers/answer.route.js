@@ -3,7 +3,8 @@ import {
   saveAnswer,
   editAnswer,
   destroyAnswer,
-  fetASpecifAnswerAndComments,
+  fetchASpecifAnswerAndComments,
+  fetchCountForUserAnswers,
 } from './answer.controller';
 import { answerSchema, editAnswwerSchema, deleteAnswwerSchema } from '../middleware/schema/answer';
 import { validateInput } from '../middleware/validation';
@@ -13,7 +14,7 @@ const answerRoute = express.Router();
 /**
  * @swagger
  *
- * /:questionId/answer/:
+ * /:questionId/answer:
  * post:
  *  tags:
  *    - Answer
@@ -101,7 +102,7 @@ answerRoute.patch('/:answerId/editAnswer', validateInput(editAnswwerSchema), edi
 /**
  * @swagger
  *
- * /:answerId/editAnswer/:
+ * /:answerId/deleteAnswer:
  * patch:
  *  tags:
  *    - Answer
@@ -148,5 +149,29 @@ answerRoute.delete('/:answerId/deleteAnswer', validateInput(deleteAnswwerSchema)
  *      500:
  *        description: Server error message
  */
-answerRoute.get('/:answerId/fetch-answer', fetASpecifAnswerAndComments);
+answerRoute.get('/:answerId/fetch-answer', fetchASpecifAnswerAndComments);
+
+/**
+ * @swagger
+ *
+ * /user/:userId/answer-count:
+ *  get:
+ *    tags:
+ *      - Specific Question
+ *    description: User should be able to view the total number of question they have answered to
+ *    produces:
+ *      - application/json
+ *    parameters:
+ *      - name: userId
+ *        description: answerId
+ *        required: true
+ *        type: uuid
+ *    responses:
+ *      200:
+ *        description: Successfully created a question
+ *      500:
+ *        description: Server error message
+ */
+answerRoute.get('/user/:userId/answer-count', fetchCountForUserAnswers);
+
 export default answerRoute;

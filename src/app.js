@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressUpload({ useTempFiles: true }));
 
-const PORT = 8000;
+const PORT = 9000;
 const server = `http://localhost:${PORT}`;
 
 const swaggerOptions = {

@@ -1,7 +1,7 @@
 // import faker from 'faker';
 
 export const newQuestion = {
-  id: 2,
+  userId: 2,
   title: 'security',
   question: 'How can security measure be taken to avoid intruders into the system',
   image: 'https://cloudinary/test.jpeg/2weq34dfy5h7',
@@ -38,12 +38,12 @@ export const ivaliddel = {
 
 export const baseUrl = '/api/v1/createQuestion';
 
-export const baseInvalidUpdate = '/api/v1/updateQuestion/87618e38-b6be-46c4-9317-782eaa05a16a';
+export const baseInvalidUpdate = '/api/v1/87618e38-b6be-46c4-9317-782eaa05a16a/updateQuestion';
 
-export const baseUpdate = '/api/v1/updateQuestion/4959fa68-5955-11ea-8e2d-0242ac130003';
+export const baseUpdate = '/api/v1/4959fa68-5955-11ea-8e2d-0242ac130003/updateQuestion';
 
-export const baseInValidDelete = '/api/v1/deleteQuestion/4959fa68-5955-11ea-8e2d-0242ac130003';
+export const baseInValidDelete = '/api/v1/4959fa68-5955-11ea-8e2d-0242ac130003/deleteQuestion/';
 
-export const baseValidDelete = '/api/v1/deleteQuestion/4959fa68-5955-11ea-8e2d-0242ac130003';
+export const baseValidDelete = '/api/v1/4959fa68-5955-11ea-8e2d-0242ac130003/deleteQuestion';
 
 export const baseGetSpecfic = '/api/v1/4959fa68-5955-11ea-8e2d-0242ac130003/fetch-question';

@@ -7,6 +7,8 @@ import {
   getAllQuestion,
   getSpecificQuestion,
   getAllvoteType,
+  getAllUserQuestions,
+  getRelatedQuestion,
 } from '../../services/question/question.services';
 
 import { getAllAnswerToAQuestion } from '../../services/answers/answers.services';
@@ -18,7 +20,7 @@ import {
   CANNOT_EDIT_QUESTION,
   CANNOT_DELETE_QUESTION,
   QUESTION_RETRIEVED,
-  NO_COMMENTS,
+  NO_RELATED,
   AUTHORISED,
   ALL_QUESTION,
   NO_QUESTION,
@@ -27,6 +29,8 @@ import {
   DOWNVOTE,
   DOWNVOTE_COUNT,
   UPVOTE_COUNT,
+  NO_ANSWERS,
+  MATCH_FOUND,
 } from '../../utils/constant';
 
 export const saveQuestion = async (req, res) => {
@@ -114,7 +118,7 @@ export const fetchOneSpeciicfQuestionWithAnswer = async (req, res) => {
         message: QUESTION_RETRIEVED,
         data: question,
         comments: {
-          message: NO_COMMENTS,
+          message: NO_ANSWERS,
         },
       });
     }
@@ -154,5 +158,44 @@ export const fetchAllDownVote = async (req, res) => {
     return res.status(200).json({ status: 200, message: DOWNVOTE_COUNT, data: vote.count });
   } catch (error) {
     return Response(res, { status: 500, message: SERVER_ERROR });
+  }
+};
+
+/** returns the count of question asked by user,  */
+export const fetchCountoFuserQuestion = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const total = await getAllUserQuestions(userId);
+    if (total === 0) {
+      return res.status(200).json({
+        status: 200,
+        message: `You have ${total} question`,
+      });
+    }
+    if (total) {
+      return res.status(200).json({
+        status: 200,
+        message: 'Total number of question asked by you retrieved successfully',
+        data: total,
+      });
+    }
+  } catch (err) {
+    return Response(res, { status: 500, message: SERVER_ERROR });
+  }
+};
+
+export const fetchRelatedQuestion = async (req, res) => {
+  try {
+    const { question } = req.query;
+    console.log('>>>>>>>', question);
+    const related = await getRelatedQuestion(question);
+    console.log('>>>>>>>', related);
+    if (!related) {
+      return res.status(404).json({ status: 404, message: NO_RELATED });
+    }
+    return res.status(200).json({ status: 200, message: MATCH_FOUND, data: related });
+  } catch (err) {
+    return err;
   }
 };
