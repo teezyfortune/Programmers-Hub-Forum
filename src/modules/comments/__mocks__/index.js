@@ -1,11 +1,16 @@
 // import faker from 'faker';
 
 export const newComment = {
-  userId: 2,
+  userId: 4,
   comment: 'You can create an helper functuon to help you solve that',
   // questionId: '4959fa68-5955-11ea-8e2d-0242ac130003',
 };
 
+export const newAnswer = {
+  image_url: 'https://web.image_urls/test.png',
+  userId: 2,
+  answer: 'You can create an helper functuon to help you solve that',
+};
 export const emptyComment = {
   userId: 3,
   // questionId: '6036d53c-6079-11ea-bc55-0242ac130003',
@@ -25,7 +30,7 @@ export const updateComment = {
 };
 
 export const moderatorUpdateComment = {
-  userId: 3,
+  userId: 8,
   type: 'moderator',
   comment: 'when you are mine',
 };
@@ -35,7 +40,7 @@ export const del = {
 };
 
 export const moderatorDel = {
-  userId: 3,
+  userId: 8,
   type: 'moderator',
 };
 
@@ -43,7 +48,8 @@ export const ivaliddel = {
   userId: 3,
 };
 
-export const baseUrl = '/api/v1/4959fa68-5955-11ea-8e2d-0242ac130003/createComment/';
+export const baseUrl = '/api/v1/e60f3d36-64eb-11ea-bc55-0242ac130003/createComment/';
+export const baseUrlAnswer = '/api/v1/4959fa68-5955-11ea-8e2d-0242ac130003/answer/';
 
 export const baseInvalidUpdate = '/api/v1/4959fa68-5955-11ea-8e2d-0242ac130003/updateComment';
 

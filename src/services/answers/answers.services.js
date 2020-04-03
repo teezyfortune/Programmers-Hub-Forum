@@ -1,6 +1,6 @@
 import models from '../../database/models';
 
-const { Answers } = models;
+const { Answers, Questions, comments } = models;
 
 export const answerQuestion = async (item, questionId) => {
   try {
@@ -74,7 +74,22 @@ export const getAllAnswerToAQuestion = async (questionId) => {
       },
       order: [['createdAt', 'DESC']],
     };
-    return await Answers.findAndCountAll(where);
+    return await Answers.findAll(where);
+  } catch (err) {
+    return err;
+  }
+};
+
+/** get all question answered by a  user */
+export const getAllUserAnswer = async (userId) => {
+  try {
+    const where = {
+      where: {
+        userId,
+      },
+    };
+    const answers = await Answers.findAndCountAll(where);
+    return answers.count;
   } catch (err) {
     return err;
   }

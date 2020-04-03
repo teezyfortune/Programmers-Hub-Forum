@@ -7,7 +7,7 @@ module.exports = {
           id: 'e60f3d36-64eb-11ea-bc55-0242ac130003',
           userId: 9,
           image_url: 'https://google.image.jpeg',
-          questionId: '4959fa68-5955-11ea-8e2d-0242ac130003',
+          questionId: '4959fa68-5955-11ea-8e2d-0232ac130003',
           answer: 'It is well oooo',
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -25,7 +25,6 @@ module.exports = {
       {}
     );
   },
-
   down: (queryInterface) => {
     return queryInterface.bulkDelete('Answers', null, {});
   },
