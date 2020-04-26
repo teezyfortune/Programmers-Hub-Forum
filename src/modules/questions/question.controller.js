@@ -183,14 +183,13 @@ export const fetchCountoFuserQuestion = async (req, res) => {
   } catch (err) {
     return Response(res, { status: 500, message: SERVER_ERROR });
   }
+  return false;
 };
 
 export const fetchRelatedQuestion = async (req, res) => {
   try {
-    const { question } = req.query;
-    console.log('>>>>>>>', question);
+    const { question } = req.body;
     const related = await getRelatedQuestion(question);
-    console.log('>>>>>>>', related);
     if (!related) {
       return res.status(404).json({ status: 404, message: NO_RELATED });
     }
