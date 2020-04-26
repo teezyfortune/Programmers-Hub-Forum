@@ -4,13 +4,14 @@
   "description": "Progrmmers hub, we are tech community",
   "main": "src/app.js",
   "scripts": {
+    "build": "rimraf build && babel src -d build",
     "pretest": "NODE_ENV=test npm run db:reset",
     "test": "NODE_ENV=test mocha --exit --recursive --timeout 5000 --require @babel/register src/**/**/*.spec.js",
     "dev": "nodemon  --exec babel-node src/app.js",
-    "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo",
+    "migrate:undo": "node_modules/.bin/sequelize db:migrate:undo:all",
     "db:migrate": "node_modules/.bin/sequelize db:migrate",
     "seed": "node_modules/.bin/sequelize db:seed:all",
-    "db:reset": "npm run migrate:undo && npm run db:migrate && npm run undo:seeder",
+    "db:reset": "npm run migrate:undo && npm run db:migrate && npm run seed",
     "undo:seeder": "node_modules/.bin/sequelize db:seed:undo:all && npm run seed"
   },
   "repository": {
@@ -41,7 +42,8 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "nodemon": "^2.0.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.0",

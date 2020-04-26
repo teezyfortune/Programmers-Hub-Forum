@@ -38,7 +38,6 @@ export const editComment = async (req, res) => {
 
     const { userId, type, comment } = req.body;
     const find = await findOneComment(commentId, userId);
-
     if (!find && type === AUTHORISED) {
       const edit = await upadateComment({ comment }, commentId);
 
@@ -50,6 +49,8 @@ export const editComment = async (req, res) => {
     }
 
     const edit = await upadateComment({ comment }, commentId);
+    console.log('>>>>>hhhhh', edit);
+
     return Response(res, { status: 200, message: COMMENT_UPDATED, data: edit });
   } catch (error) {
     return Response(res, { status: 500, message: SERVER_ERROR });
