@@ -8,7 +8,7 @@
     "build": "npm run clean && babel src -d src/build/ --ignore src/build",
     "start": "node src/build/app.js",
     "heroku-postbuild": "npm run build",
-     "coveralls": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov",
     "coverage": "nyc npm test && npm run generate-lcov && npm run coveralls-coverage && npm run codeclimate-coverage",
     "pretest": "NODE_ENV=test npm run db:reset",
     "test": "NODE_ENV=test mocha --exit --recursive --timeout 5000 --require @babel/register src/**/**/*.spec.js",
@@ -50,7 +50,8 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "shx": "^0.3.2"
   },
   "dependencies": {
     "@hapi/joi": "^17.1.0",
