@@ -35,11 +35,11 @@ app.use('/api/v1', routes);
 // serve swagger to all routes
 const swaggerDOCS = swaggerJSDocs(swaggerOptions);
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDOCS));
+app.use('/api/v1/', swaggerUi.serve, swaggerUi.setup(swaggerDOCS));
 
-// app.get('/', (req, res) => {
-//   Response(res, { status: 200, message: 'Welcome to programmers_Hub_Forum' });
-// });
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Welcome to programmers_Hub_Forum' });
+});
 
 app.listen(PORT, () => {
   console.log(`sever listening on ${server}`);
