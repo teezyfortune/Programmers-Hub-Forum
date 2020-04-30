@@ -4,9 +4,7 @@
   "description": "Progrmmers hub, we are tech community",
   "main": "src/app.js",
   "scripts": {
-    "clean": "shx rm -rf src/build/ && shx mkdir src/build/",
-    "build": "npm run clean && babel src -d src/build/ --ignore src/build",
-    "start": "node src/build/app.js",
+    "start": "node src/app.js",
     "heroku-postbuild": "npm run build",
     "coveralls": "nyc report --reporter=text-lcov | coveralls && nyc report --reporter=lcov",
     "coverage": "nyc npm test && npm run generate-lcov && npm run coveralls-coverage && npm run codeclimate-coverage",
