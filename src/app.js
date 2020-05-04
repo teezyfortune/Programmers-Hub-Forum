@@ -33,11 +33,11 @@ const swaggerOptions = {
 // serve swagger to all routes
 const swaggerDOCS = swaggerJSDocs(swaggerOptions);
 
-app.use('/api/v1', routes);
+app.use('/api-docs', routes);
 
-app.use('/api/v1/', swaggerUi.serve, swaggerUi.setup(swaggerDOCS));
+app.use('', swaggerUi.serve, swaggerUi.setup(swaggerDOCS));
 
-app.get('/', (req, res) => {
+app.get('/api/v1/', (req, res) => {
   res.status(200).json({ message: 'Welcome to programmers_Hub_Forumn API' });
 });
 
