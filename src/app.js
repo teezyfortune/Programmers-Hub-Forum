@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressUpload({ useTempFiles: true }));
 
-const PORT = 9000;
+const PORT = process.env.PORT || 9000;
 const server = `http://localhost:${PORT}`;
 
 const swaggerOptions = {
@@ -41,6 +41,7 @@ app.get('/api/v1/', (req, res) => {
   res.status(200).json({ message: 'Welcome to programmers_Hub_Forumn API' });
 });
 
+// app.set('port', PORT);
 
 app.listen(PORT, () => {
   console.log(`sever listening on ${server}`);
